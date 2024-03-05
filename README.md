@@ -8,7 +8,7 @@ Currently only locked to english with american accent. Easy fix if requested, or
 ## Usage 
 Assuming you have docker installed and setup
 ### Build
-    git clone git@github.com:timhagel/MeloTTS-API-Server.git
+    git clone git@github.com:lojik-ng/MeloTTS-API-Server.git
     cd melotts-api-server
     docker build -t melotts-api-server .
  ### Run
