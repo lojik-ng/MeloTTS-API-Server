@@ -3,24 +3,38 @@ from pydantic import BaseModel
 from fastapi.responses import FileResponse
 from melo.api import TTS
 
-speed = 1.0
-device = 'auto' # Will automatically use GPU if available
+DEFAULT_SPEED = 1.0
+DEFAULT_LANGUAGE = 'EN'
+DEFAULT_SPEAKER = 'EN-Default'
+device = 'auto'  # Will automatically use GPU if available
 
 class TextModel(BaseModel):
     text: str
+    speaker: str = DEFAULT_SPEAKER
+    language: str = DEFAULT_LANGUAGE
+    speed: float = DEFAULT_SPEED
 
 app = FastAPI()
 
-@app.post("/text_to_speech")
+@app.post("/tts")
 async def create_upload_file(body: TextModel = Body(...)):
-    model = TTS(language='EN', device=device)
-    speaker_ids = model.hps.data.spk2id
+    # Retrieve parameters from the request
+    text = body.text
+    speaker = body.speaker
+    language = body.language
+    speed = body.speed
+    
+    model = TTS(language=language, device=device)
+    speaker_id = model.hps.data.spk2id.get(speaker)
 
-    output_path = 'en-us.wav'
-    model.tts_to_file(body.text, speaker_ids['EN-US'], output_path, speed=speed)
+    if speaker_id is None:
+        return {"error": "Invalid speaker ID"}
+
+    output_path = f"{language}-{speaker}-{speed}.wav"
+    model.tts_to_file(text, speaker_id, output_path, speed=speed)
 
     # Return the audio file
-    return FileResponse("en-us.wav", media_type="audio/mpeg", filename="en-us.wav")
+    return FileResponse(output_path, media_type="audio/mpeg", filename=output_path)
 
 if __name__ == "__main__":
     import uvicorn
