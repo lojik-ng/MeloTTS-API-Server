@@ -1,5 +1,7 @@
 # MeloTTS API Server
 A quick easy way to access [MeloTTS](https://github.com/myshell-ai/MeloTTS) through REST API calls.
+## Todo
+[x] Add language, speaker and speed to the api call parameters
 
 Currently only locked to english with american accent. Easy fix if requested, or you can just change the hardcode speaker_ids before build if needed.
 
