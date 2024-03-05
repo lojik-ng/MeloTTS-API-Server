@@ -10,9 +10,9 @@ Assuming you have docker installed and setup
 ### Build
     git clone git@github.com:lojik-ng/MeloTTS-API-Server-Full.git
     cd MeloTTS-API-Server-Full
-    docker build -t MeloTTS-API-Server-Full .
+    docker build -t melotts-api-server-full .
  ### Run
-    docker run -p 8888:8080 melotts-api-server
+    docker run -p 8888:8080 melotts-api-server-full
 ### Call API
 **localhost:8888/api**
 
