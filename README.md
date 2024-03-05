@@ -14,10 +14,13 @@ Assuming you have docker installed and setup
  ### Run
     docker run -p 8888:8080 melotts-api-server
 ### Call API
-**localhost:8888/text_to_speech**
+**localhost:8888/api**
 
     {
-        "text": "Put input here"
+        "text": "Put input here",
+        "language": "EN",
+        "speaker": "EN-Default",
+        "speed": 1.0
     }
 Response : en-us.wav
 
